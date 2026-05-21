@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pixel Forge - Cursos de Desenvolvimento de Games</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    :root{
+      --bg:#0f172a;
+      --card:#1e293b;
+      --primary:#8b5cf6;
+      --secondary:#06b6d4;
+      --text:#f8fafc;
+      --gray:#94a3b8;
+    }
+
+    body{
+      font-family:'Poppins', sans-serif;
+      background:linear-gradient(to bottom, #020617, #0f172a);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    header{
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:999;
+      background:rgba(2,6,23,0.8);
+      backdrop-filter:blur(10px);
+      padding:18px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .logo{
+      font-family:'Orbitron', sans-serif;
+      font-size:1.7rem;
+      color:var(--primary);
+      font-weight:700;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:25px;
+      transition:0.3s;
+      font-weight:500;
+    }
+
+    nav a:hover{
+      color:var(--secondary);
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:120px 8%;
+      gap:40px;
+    }
+
+    .hero-text{
+      flex:1;
+    }
+
+    .hero-text h1{
+      font-size:4rem;
+      line-height:1.1;
+      margin-bottom:20px;
+      font-family:'Orbitron', sans-serif;
+    }
+
+    .hero-text span{
+      color:var(--primary);
+    }
+
+    .hero-text p{
+      color:var(--gray);
+      font-size:1.1rem;
+      margin-bottom:30px;
+      max-width:550px;
+    }
+
+    .btn{
+      padding:14px 28px;
+      background:linear-gradient(45deg, var(--primary), var(--secondary));
+      border:none;
+      color:white;
+      font-size:1rem;
+      border-radius:12px;
+      cursor:pointer;
+      transition:0.3s;
+      font-weight:600;
+      box-shadow:0 0 20px rgba(139,92,246,0.4);
+    }
+
+    .btn:hover{
+      transform:translateY(-3px) scale(1.03);
+    }
+
+    .hero-image{
+      flex:1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .game-card{
+      width:420px;
+      height:420px;
+      background:linear-gradient(145deg,#1e293b,#0f172a);
+      border:2px solid rgba(255,255,255,0.1);
+      border-radius:30px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 0 30px rgba(139,92,246,0.3);
+      animation:float 4s ease-in-out infinite;
+    }
+
+    .game-card::before{
+      content:'';
+      position:absolute;
+      width:250px;
+      height:250px;
+      background:var(--primary);
+      filter:blur(120px);
+      top:-50px;
+      left:-50px;
+      opacity:0.6;
+    }
+
+    .game-card::after{
+      content:'';
+      position:absolute;
+      width:200px;
+      height:200px;
+      background:var(--secondary);
+      filter:blur(100px);
+      bottom:-50px;
+      right:-50px;
+      opacity:0.5;
+    }
+
+    .pixel{
+      position:absolute;
+      width:20px;
+      height:20px;
+      background:white;
+      opacity:0.8;
+      animation:pixelMove 6s linear infinite;
+    }
+
+    @keyframes pixelMove{
+      from{
+        transform:translateY(0);
+      }
+      to{
+        transform:translateY(450px);
+      }
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(-15px);
+      }
+    }
+
+    section{
+      padding:100px 8%;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:2.7rem;
+      font-family:'Orbitron', sans-serif;
+      margin-bottom:10px;
+    }
+
+    .section-title p{
+      color:var(--gray);
+    }
+
+    .courses{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+    }
+
+    .course-card{
+      background:rgba(30,41,59,0.8);
+      border-radius:20px;
+      padding:30px;
+      transition:0.4s;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .course-card:hover{
+      transform:translateY(-10px);
+      border-color:var(--primary);
+      box-shadow:0 0 25px rgba(139,92,246,0.2);
+    }
+
+    .course-card h3{
+      margin:20px 0 10px;
+      font-size:1.5rem;
+    }
+
+    .course-card p{
+      color:var(--gray);
+      margin-bottom:20px;
+    }
+
+    .icon{
+      font-size:3rem;
+    }
+
+    .stats{
+      display:flex;
+      justify-content:center;
+      gap:50px;
+      flex-wrap:wrap;
+      margin-top:40px;
+    }
+
+    .stat{
+      text-align:center;
+    }
+
+    .stat h3{
+      font-size:3rem;
+      color:var(--secondary);
+      font-family:'Orbitron', sans-serif;
+    }
+
+    .stat p{
+      color:var(--gray);
+    }
+
+    .cta{
+      background:linear-gradient(45deg, rgba(139,92,246,0.2), rgba(6,182,212,0.2));
+      border-radius:30px;
+      text-align:center;
+      padding:70px 30px;
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .cta h2{
+      font-size:2.8rem;
+      margin-bottom:20px;
+      font-family:'Orbitron', sans-serif;
+    }
+
+    .cta p{
+      color:var(--gray);
+      max-width:700px;
+      margin:auto auto 30px;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px;
+      color:var(--gray);
+      border-top:1px solid rgba(255,255,255,0.08);
+      margin-top:60px;
+    }
+
+    @media(max-width:900px){
+      .hero{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .hero-text h1{
+        font-size:3rem;
+      }
+
+      .game-card{
+        width:320px;
+        height:320px;
+      }
+
+      nav{
+        display:none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">PIXEL FORGE</div>
+
+    <nav>
+      <a href="#cursos">Cursos</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Transforme ideias em <span>games incríveis</span></h1>
+
+      <p>
+        Aprenda desenvolvimento de jogos do zero com cursos modernos,
+        projetos práticos e professores apaixonados por tecnologia e criatividade.
+      </p>
+
+      <button class="btn">Começar Agora</button>
+    </div>
+
+    <div class="hero-image">
+      <div class="game-card" id="gameCard"></div>
+    </div>
+  </section>
+
+  <section id="cursos">
+    <div class="section-title">
+      <h2>Nossos Cursos</h2>
+      <p>Escolha sua jornada no universo game dev</p>
+    </div>
+
+    <div class="courses">
+
+      <div class="course-card">
+        <div class="icon">🎮</div>
+        <h3>Unity 3D</h3>
+        <p>
+          Crie jogos 2D e 3D profissionais utilizando Unity e C#.
+        </p>
+        <button class="btn">Saiba Mais</button>
+      </div>
+
+      <div class="course-card">
+        <div class="icon">🕹️</div>
+        <h3>Unreal Engine</h3>
+        <p>
+          Desenvolva experiências cinematográficas usando Unreal Engine 5.
+        </p>
+        <button class="btn">Saiba Mais</button>
+      </div>
+
+      <div class="course-card">
+        <div class="icon">👾</div>
+        <h3>Pixel Art & Design</h3>
+        <p>
+          Aprenda criação de personagens, cenários e animações retrô.
+        </p>
+        <button class="btn">Saiba Mais</button>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="section-title">
+      <h2>Por que escolher a Pixel Forge?</h2>
+      <p>Mais que cursos, uma comunidade gamer criativa</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <h3 class="counter" data-target="2500">0</h3>
+        <p>Alunos</p>
+      </div>
+
+      <div class="stat">
+        <h3 class="counter" data-target="35">0</h3>
+        <p>Projetos Criados</p>
+      </div>
+
+      <div class="stat">
+        <h3 class="counter" data-target="12">0</h3>
+        <p>Instrutores</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="cta">
+      <h2>Pronto para criar seu primeiro jogo?</h2>
+
+      <p>
+        Entre para a Pixel Forge e transforme sua criatividade em experiências jogáveis.
+      </p>
+
+      <button class="btn">Inscreva-se</button>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Pixel Forge — Projeto escolar fictício.
+  </footer>
+
+  <script>
+    // Pixels animados
+    const gameCard = document.getElementById("gameCard");
+
+    for(let i = 0; i < 40; i++){
+      const pixel = document.createElement("div");
+      pixel.classList.add("pixel");
+
+      pixel.style.left = Math.random() * 400 + "px";
+      pixel.style.top = Math.random() * -400 + "px";
+      pixel.style.background = Math.random() > 0.5 ? "#8b5cf6" : "#06b6d4";
+      pixel.style.animationDuration = (Math.random() * 5 + 3) + "s";
+
+      gameCard.appendChild(pixel);
+    }
+
+    // Contador animado
+    const counters = document.querySelectorAll(".counter");
+
+    counters.forEach(counter => {
+      const updateCounter = () => {
+        const target = +counter.getAttribute("data-target");
+        const current = +counter.innerText;
+
+        const increment = target / 100;
+
+        if(current < target){
+          counter.innerText = Math.ceil(current + increment);
+          setTimeout(updateCounter, 20);
+        } else {
+          counter.innerText = target;
+        }
+      };
+
+      updateCounter();
+    });
+  </script>
+
+</body>
+</html>
